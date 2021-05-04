@@ -1,0 +1,48 @@
+I often forget which order to do my merges/rebases in, so I'm making a note here for myself (and anybod else)
+
+Preconditions:
+You should have at least three branches when you type "git branch" on the command line:
+
+dev or develop
+stage
+master or production
+
+You may also have a feature branch that you should use for writing new code.
+Setting up a feature branch
+Before writing any new code, you should setup a feature branch.
+
+Type "git status" to ensure that there are no unstaged changes.
+Type "git branch". You should be in the develop branch. Otherwise, checkout the develop branch with "git checkout develop".
+Type "git checkout -b name_of_feature_branch
+Rebasing Your Feature Branch
+If other developers have committed code to develop since you created your feature branch, you will need to rebase.
+
+Type "git branch" to ensure that you are in your feature branch.
+Stage all the files you have changed with "git add name_of_file".
+Run "git commit" and type a message to describe your changes.
+Type "git checkout develop" and then "git pull". There should be new changes in the develop branch.
+Type "git checkout name_of_feature_branch".
+Type "git rebase develop"
+You may need to resolve any conflicts.
+Merging Your Feature Branch
+After rebasing, you can merge your code into develop to push to the remote develop branch.
+
+Type "git checkout develop".
+Type "git merge name_of_feature_branch"
+There should be no merge commit if you correctly rebased your feature branch.
+Type "git push"
+If your push was rejected it is either because a change was made between your last pull of the dev branch and your push, or because you didn't do something right.
+Merging Develop onto Stage
+Type "git checkout stage"
+Type "git merge develop"
+If there are conflicts, someone may have committed a patch stage without going through develop. You may need to merge stage onto develop or do a more complex merge in this case.
+Type "git push"
+Merging Stage onto Master
+Type "git checkout master"
+Type "git merge stage"
+If there are conflicts, someone may have committed a patch stage without going through develop. You may need to merge stage onto develop or do a more complex merge in this case.
+Type "git push"
+Other Tips
+You can delete a local branch using "git branch -D name_of_feature_branch".
+If you accidentally make changes from your develop branch, you can still do "git checkout -b name_of_feature_branch" and your changes will move over to the feature branch.
+Use gitk to quickly look through your git history.
